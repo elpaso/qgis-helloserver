@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>QGIS Server Python Console</title>
+
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://terminal.jcubic.pl/css/jquery.terminal.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <style type="text/css">
+    .terminal, .cmd {
+        font-size: 14px;
+        color: green;
+        font-weight: bold;
+    }
+    /* Sticky footer styles
+    -------------------------------------------------- */
+    html {
+    position: relative;
+    min-height: 100%;
+    }
+    body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    }
+    .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
+    }
+
+
+    /* Custom page CSS
+    -------------------------------------------------- */
+    /* Not required for template or sticky footer method. */
+
+    .container {
+    width: auto;
+    max-width: 680px;
+    padding: 0 15px;
+    }
+    .container .text-muted {
+    margin: 20px 0;
+    }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>
+                    <img width="32" height="32" title="QGIS LOGO" alt="QGIS LOGO" src="data:image/png;base64,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" />
+                 QGIS Server Python Console</h1>
+                    <div id="codeform"></div>
+
+            </div>
+
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+        An hack by Alessandro Pasotti - <a href="http://www.itopen.it">ItOpen</a>
+        </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://terminal.jcubic.pl/js/jquery.terminal-0.8.8.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+        jQuery(function($, undefined) {
+            $('#codeform').terminal(function(command, term) {
+                if (command !== '') {
+                    try {
+                        $.get( window.location.href + '&CODE=' + encodeURIComponent(command), function( data, status, xhr ) {
+                            var ct = xhr.getResponseHeader("content-type");
+                            if( ct == 'text/plain') {
+                                // Fancy formatting
+                                //term.echo('[[g;yellow;black]' + new String(data) + ']');
+                                term.echo( new String(data), {
+                                    finalize: function(div) {
+                                        div.css("color", "yellow");
+                                    }
+                                });
+                            } else {
+                                term.error('Server returned non-text mime type: ' + ct);
+                            }
+                        }).fail(function(){
+                            term.echo( new String('Server error 500'), {
+                                    finalize: function(div) {
+                                        div.css("color", "red");
+                                    }
+                                });
+                        });
+                    } catch(e) {
+                        term.error(new String(e));
+                    }
+                } else {
+                    term.echo('');
+                }
+             },
+             {
+                greetings: 'QGIS Python Interpreter - Page UP/DOWN to scroll',
+                name: 'pyqgs',
+                height: 400,
+                prompt: '> ',
+                tabcompletion: true,
+                completion: function(terminal, command, callback) {
+                    var tc;
+                    $.ajax( window.location.href + '&CODE=' + encodeURIComponent('print locals().keys() + globals().keys()'), {
+                        success: function( data ) {
+                            tc =  $.parseJSON(data.replace(/'/g, '"' ));
+                        },
+                        async :  false
+                    });
+                    callback( tc );
+                }
+            });
+        });
+    </script>
+  </body>
+</html>
