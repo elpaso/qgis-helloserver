@@ -120,6 +120,13 @@ class HelloServer:
 
 
     @staticmethod
+    def SayHello(project_path, parameters):
+        """Just say a sentence"""
+        print "HelloServer"
+        return 'text/plain'
+
+
+    @staticmethod
     def RemoteConsole(project_path, parameters):
         """Run arbitrary Python code from CODE parameter, sends back the output"""
         # Instanciate a locals buffer
