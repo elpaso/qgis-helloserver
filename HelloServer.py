@@ -104,7 +104,8 @@ class HelloServer:
     @staticmethod
     def GetCapabilities(project_path, parameters):
         print '<ul><li><b>GetOutput</b>: run arbitrary Python code, configure it from QGIS plugin interface. Project path is: %s</li>' % project_path
-        print '<li><b>RemoteConsole</b>: run arbitrary Python code in web shell. This is highly insecure and for testing only: do not use on production servers.</li></ul>'
+        print '<li><b>RemoteConsole</b>: run arbitrary Python code in web shell. This is highly insecure and for testing only: do not use on production servers.</li>'
+        print '<li><b>SayHello</b>: prints "HelloServer".</li></ul>'
         return 'text/html'
 
     @staticmethod
@@ -128,8 +129,8 @@ class HelloServer:
 
     @staticmethod
     def RemoteConsole(project_path, parameters):
-        """Run arbitrary Python code from CODE parameter, sends back the output"""
-        # Instanciate a locals buffer
+        """Run arbitrary Python code from CODE parameter, sends back the output.
+        The single user session is maintained in a local buffer"""
         try:
             HelloServer._local_buffer
         except:
