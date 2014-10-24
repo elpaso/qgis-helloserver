@@ -29,9 +29,4 @@ class HelloServerDialog(QtGui.QDialog, Ui_HelloServer ):
         QtGui.QDialog.__init__(self)
         # Set up the user interface from Designer.
         self.setupUi(self)
-        self.mimeComboBox.addItems(self.MIMES)
-
-    @QtCore.pyqtSlot()
-    def on_clearButton_clicked(self):
-        self.code.setPlainText('')
 

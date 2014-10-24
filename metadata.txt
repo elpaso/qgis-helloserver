@@ -7,7 +7,9 @@ version=version 1.0
 author=Alessandro Pasotti (ItOpen)
 email=apasotti@gmail.com
 service=HELLO
-methods=GetCapabilities,GetOutput,RemoteConsole,SayHello
+; iFace plugins: if True it's a server plugin
+server=True
+methods=GetCapabilities,GetOutput,RemoteConsole,SayHello,Debug
 
 changelog=
 

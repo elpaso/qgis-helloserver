@@ -16,10 +16,13 @@
 *                                                                         *
 ***************************************************************************
 """
+from __future__ import print_function
 
 __author__ = 'Alessandro Pasotti'
 __date__ = 'August 2014'
-__copyright__ = '(C) 2014, Alessandro Pasotti'
+__copyright__ = '(C) 2014, Alessandro Pasotti - ItOpen'
+
+import sys
 
 import pickle
 import os
@@ -28,26 +31,57 @@ import os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
+from qgis.server import *
 from HelloServerDialog import HelloServerDialog
 
-DEFAULT_CODE = 'print "Just a testing server plugin!"'
+# Remote console filter auth defaults
+
+# The filter will issue a 403 Forbidden if the following
+# environment vars are not passed by FCGI:
+
+DEFAULT_REMOTE_ADDR = '127.0.0.1'
+
+"""
+HTTP_AUTH BASIC
+May need proper fcgid apache configuration:
+
+    RewriteEngine On
+    <IfModule mod_fcgid.c>
+        RewriteCond %{HTTP:Authorization} .
+        RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    </IfModule>
+
+"""
+
+DEFAULT_USERID = 'test'
+DEFAULT_PASSWORD = 'qgis'
+
+
+def error_log(msg):
+    """Print to stderr"""
+    print("HelloServer: ", msg, file=sys.stderr)
 
 
 class HelloServer:
+    """Test plugin for QGIS server"""
 
-    def __init__(self, iface):
+    DEFAULT_PASSWORD = DEFAULT_PASSWORD
+    DEFAULT_USERID = DEFAULT_USERID
+    DEFAULT_REMOTE_ADDR = DEFAULT_REMOTE_ADDR
+
+    def __init__(self, serverIface):
         # Save reference to the QGIS interface
-        self.iface = iface
-        self.canvas = iface.mapCanvas()
+        self.serverIface = serverIface
+        self.canvas = serverIface.mapCanvas()
 
     def initGui(self):
         # Create action that will start plugin
-        self.action = QAction(QIcon(":/plugins/"), "&HelloServer", self.iface.mainWindow())
+        self.action = QAction(QIcon(":/plugins/"), "&HelloServer", self.serverIface.mainWindow())
         # connect the action to the run method
         QObject.connect(self.action, SIGNAL("activated()"), self.config)
 
         # Add toolbar button and menu item
-        self.iface.addPluginToMenu("HelloServer", self.action)
+        self.serverIface.addPluginToMenu("HelloServer", self.action)
 
     # change settings
     def config(self):
@@ -55,8 +89,9 @@ class HelloServer:
         dlg = HelloServerDialog()
         # Get settings
         settings = HelloServer.getSettings()
-        dlg.mimeComboBox.setCurrentIndex(dlg.MIMES.index(settings['mime']))
-        dlg.code.setPlainText(settings['code'])
+        dlg.userid.setText(settings['userid'])
+        dlg.password.setText(settings['password'])
+        dlg.remote_addr.setText(settings['remote_addr'])
         # show the dialog
         dlg.show()
         result = dlg.exec_()
@@ -64,14 +99,15 @@ class HelloServer:
         if result == 1:
             # save settings
             HelloServer.storeSettings({
-                'mime': dlg.mimeComboBox.currentText(),
-                'code': dlg.code.toPlainText(),
+                'userid':  dlg.userid.text(),
+                'password': dlg.password.text(),
+                'remote_addr': dlg.remote_addr.text(),
             })
 
 
     def unload(self):
         # Remove the plugin menu item and icon
-        self.iface.removePluginMenu("HelloServer",self.action)
+        self.serverIface.removePluginMenu("HelloServer",self.action)
 
 
     @staticmethod
@@ -86,68 +122,40 @@ class HelloServer:
         config = pickle.dump(settings, output)
         output.close()
 
+
     @staticmethod
     def getSettings():
-        # Store configuration locallyoutput
         try:
-            output = open(HelloServer._getSettingsPath(), 'rb')
+            in_file = open(HelloServer._getSettingsPath(), 'rb')
             # Pickle dictionary using protocol 0.
-            settings = pickle.load(output)
-            output.close()
-        except:
-            settings = {
-                'mime' : 'text/plain',
-                'code' : DEFAULT_CODE
-            }
-        return settings
-
-    @staticmethod
-    def GetCapabilities(project_path, parameters):
-        print '<ul><li><b>GetOutput</b>: run arbitrary Python code, configure it from QGIS plugin interface. Project path is: %s</li>' % project_path
-        print '<li><b>RemoteConsole</b>: run arbitrary Python code in web shell. This is highly insecure and for testing only: do not use on production servers.</li>'
-        print '<li><b>SayHello</b>: prints "HelloServer".</li></ul>'
-        return 'text/html'
-
-    @staticmethod
-    def GetOutput(project_path, parameters):
-        """Run arbitrary Python code, configure it from QGIS plugin interface"""
-        settings = HelloServer.getSettings()
-        try:
-            exec(settings['code'], globals(), locals())
+            HelloServer.settings = pickle.load(in_file)
+            in_file.close()
         except Exception, e:
-            print "Error: %s" % e
-            return 'text/plain'
-        return settings['mime']
+            HelloServer.settings = {
+                'userid':  DEFAULT_USERID,
+                'password': DEFAULT_PASSWORD,
+                'remote_addr': DEFAULT_REMOTE_ADDR,
+            }
+        return HelloServer.settings
 
 
-    @staticmethod
-    def SayHello(project_path, parameters):
-        """Just say a sentence"""
-        print "HelloServer"
-        return 'text/plain'
+class HelloServerServer:
+    """Test plugin for QGIS server
+    this plugin loads all filters from the 'filters' directory and logs
+    errors"""
 
-
-    @staticmethod
-    def RemoteConsole(project_path, parameters):
-        """Run arbitrary Python code from CODE parameter, sends back the output.
-        The single user session is maintained in a local buffer"""
-        try:
-            HelloServer._local_buffer
-        except:
-            HelloServer._local_buffer = locals()
-        if not 'CODE' in parameters:
-            with open( os.path.dirname(os.path.realpath(__file__)) + '/RemoteConsole.html') as f:
-                print ''.join(f.readlines())
-                # Clear the buffer
-                HelloServer._local_buffer = locals()
-                return 'text/html'
-        else:
+    def __init__(self, serverIface):
+        # Save reference to the QGIS server interface
+        self.serverIface = serverIface
+        import filters
+        priority = 1
+        for filter_name in filters.local_modules:
+            QgsMessageLog.logMessage("HelloServerServer - loading filter %s" % filter_name, 'plugin', QgsMessageLog.INFO)
             try:
-                code = parameters['CODE'] + '\nHelloServer._local_buffer = locals()'
-                exec(code, globals(), HelloServer._local_buffer)
+                serverIface.registerFilter( getattr(filters, filter_name)(serverIface), priority * 100 )
+                priority += 1
             except Exception, e:
-                print "Error: %s" % e
-        return 'text/plain'
+                QgsMessageLog.logMessage("HelloServerServer - Error loading filter %s : %s" % (filter_name, e), 'plugin', QgsMessageLog.CRITICAL)
 
 
 if __name__ == "__main__":

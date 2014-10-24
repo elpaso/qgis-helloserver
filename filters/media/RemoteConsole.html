@@ -98,7 +98,7 @@
                             if( ct == 'text/plain') {
                                 // Fancy formatting
                                 //term.echo('[[g;yellow;black]' + new String(data) + ']');
-                                term.echo( new String(data), {
+                                term.echo( new String(data.trim()), {
                                     finalize: function(div) {
                                         div.css("color", "yellow");
                                     }

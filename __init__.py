@@ -4,6 +4,11 @@
 """
 
 def classFactory(iface):
-  from HelloServer import HelloServer
-  return HelloServer(iface)
+    from HelloServer import HelloServer
+    return HelloServer(iface)
+
+
+def serverClassFactory(serverIface):
+    from HelloServer import HelloServerServer
+    return HelloServerServer(serverIface)
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'Ui_HelloServer.ui'
 #
-# Created: Tue Aug 26 14:42:48 2014
+# Created: Mon Oct 13 17:07:03 2014
 #      by: PyQt4 UI code generator 4.10.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,28 +26,83 @@ except AttributeError:
 class Ui_HelloServer(object):
     def setupUi(self, HelloServer):
         HelloServer.setObjectName(_fromUtf8("HelloServer"))
-        HelloServer.resize(490, 306)
+        HelloServer.resize(495, 402)
         self.verticalLayout = QtGui.QVBoxLayout(HelloServer)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.Config = QtGui.QTabWidget(HelloServer)
+        self.Config.setObjectName(_fromUtf8("Config"))
+        self.tab = QtGui.QWidget()
+        self.tab.setObjectName(_fromUtf8("tab"))
+        self.label_4 = QtGui.QLabel(self.tab)
+        self.label_4.setGeometry(QtCore.QRect(0, -1, 461, 311))
+        self.label_4.setWordWrap(True)
+        self.label_4.setMargin(10)
+        self.label_4.setOpenExternalLinks(True)
+        self.label_4.setObjectName(_fromUtf8("label_4"))
+        self.Config.addTab(self.tab, _fromUtf8(""))
+        self.config = QtGui.QWidget()
+        self.config.setObjectName(_fromUtf8("config"))
+        self.verticalLayoutWidget = QtGui.QWidget(self.config)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(0, 0, 461, 271))
+        self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
+        self.verticalLayout_3 = QtGui.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout_3.setMargin(0)
+        self.verticalLayout_3.setObjectName(_fromUtf8("verticalLayout_3"))
+        self.label_3 = QtGui.QLabel(self.verticalLayoutWidget)
+        self.label_3.setWordWrap(True)
+        self.label_3.setMargin(5)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.verticalLayout_3.addWidget(self.label_3)
+        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacerItem)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.addressLabel = QtGui.QLabel(HelloServer)
+        self.addressLabel = QtGui.QLabel(self.verticalLayoutWidget)
         self.addressLabel.setObjectName(_fromUtf8("addressLabel"))
         self.horizontalLayout.addWidget(self.addressLabel)
-        self.mimeComboBox = QtGui.QComboBox(HelloServer)
-        self.mimeComboBox.setObjectName(_fromUtf8("mimeComboBox"))
-        self.horizontalLayout.addWidget(self.mimeComboBox)
-        self.verticalLayout.addLayout(self.horizontalLayout)
-        self.code = QtGui.QPlainTextEdit(HelloServer)
-        self.code.setObjectName(_fromUtf8("code"))
-        self.verticalLayout.addWidget(self.code)
+        self.userid = QtGui.QLineEdit(self.verticalLayoutWidget)
+        self.userid.setObjectName(_fromUtf8("userid"))
+        self.horizontalLayout.addWidget(self.userid)
+        self.verticalLayout_3.addLayout(self.horizontalLayout)
+        self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        self.label = QtGui.QLabel(self.verticalLayoutWidget)
+        self.label.setObjectName(_fromUtf8("label"))
+        self.horizontalLayout_3.addWidget(self.label)
+        self.password = QtGui.QLineEdit(self.verticalLayoutWidget)
+        self.password.setObjectName(_fromUtf8("password"))
+        self.horizontalLayout_3.addWidget(self.password)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_3)
+        self.horizontalLayout_4 = QtGui.QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(_fromUtf8("horizontalLayout_4"))
+        self.label_2 = QtGui.QLabel(self.verticalLayoutWidget)
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.horizontalLayout_4.addWidget(self.label_2)
+        self.remote_addr = QtGui.QLineEdit(self.verticalLayoutWidget)
+        self.remote_addr.setObjectName(_fromUtf8("remote_addr"))
+        self.horizontalLayout_4.addWidget(self.remote_addr)
+        self.verticalLayout_3.addLayout(self.horizontalLayout_4)
+        self.Config.addTab(self.config, _fromUtf8(""))
+        self.tab_2 = QtGui.QWidget()
+        self.tab_2.setObjectName(_fromUtf8("tab_2"))
+        self.verticalLayoutWidget_2 = QtGui.QWidget(self.tab_2)
+        self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(0, 0, 471, 271))
+        self.verticalLayoutWidget_2.setObjectName(_fromUtf8("verticalLayoutWidget_2"))
+        self.verticalLayout_4 = QtGui.QVBoxLayout(self.verticalLayoutWidget_2)
+        self.verticalLayout_4.setMargin(0)
+        self.verticalLayout_4.setObjectName(_fromUtf8("verticalLayout_4"))
+        self.label_5 = QtGui.QLabel(self.verticalLayoutWidget_2)
+        self.label_5.setWordWrap(True)
+        self.label_5.setMargin(10)
+        self.label_5.setOpenExternalLinks(True)
+        self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.verticalLayout_4.addWidget(self.label_5)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout_4.addItem(spacerItem1)
+        self.Config.addTab(self.tab_2, _fromUtf8(""))
+        self.verticalLayout.addWidget(self.Config)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.clearButton = QtGui.QPushButton(HelloServer)
-        self.clearButton.setObjectName(_fromUtf8("clearButton"))
-        self.horizontalLayout_2.addWidget(self.clearButton)
-        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem)
         self.buttonBox = QtGui.QDialogButtonBox(HelloServer)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
@@ -56,13 +111,35 @@ class Ui_HelloServer(object):
         self.verticalLayout.addLayout(self.horizontalLayout_2)
 
         self.retranslateUi(HelloServer)
+        self.Config.setCurrentIndex(1)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), HelloServer.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), HelloServer.reject)
         QtCore.QMetaObject.connectSlotsByName(HelloServer)
 
     def retranslateUi(self, HelloServer):
         HelloServer.setWindowTitle(_translate("HelloServer", "HelloServer", None))
-        self.addressLabel.setText(_translate("HelloServer", "Choose mime type:", None))
-        self.code.setPlainText(_translate("HelloServer", "# Type your python code here", None))
-        self.clearButton.setText(_translate("HelloServer", "Clear", None))
+        self.label_4.setText(_translate("HelloServer", "<html><head/><body><p>This is a test example plugin for QGIS server.</p><p>The plugin implements a few <span style=\" font-weight:600;\">QgsServerFilter</span> that provide examples for common use cases:</p>\n"
+"<ul>\n"
+"<li>RemoteConsoleFilter: (see config) an HTML remote python console, also implements HTTP BASIC Authentication</li>\n"
+"<li>ParamsFilter: do nothing but logging the result of QUERY STRING manipulation tests</li>\n"
+"<li>HelloFilter: say HelloServer! and write some lines in the logs</li>\n"
+"<li>WaterMarkFilter: adds a watermark image on top of all WMS GetImage requests.</li>\n"
+"<li>ExceptionFilter: raise and exception, catched in main loop.</li>\n"
+"</ul>\n"
+"<p>For further informations, please see <a target=\"_blank\"  href=\"http://www.itopen.it/qgis/\">QGIS server plugins</a>\n"
+"</body></html>", None))
+        self.Config.setTabText(self.Config.indexOf(self.tab), _translate("HelloServer", "Info", None))
+        self.label_3.setText(_translate("HelloServer", "<html><head/><body><p>Access control for <span style=\" font-weight:600;\">remote console</span> test plugin filter.</p><p><span style=\" font-weight:600;\">HTTP basic authentication</span> will prompt the user for the userid and password specified below.</p><p>A <span style=\" font-weight:600;\">403 Forbidden</span> header will be issued if the remote address does not match the address entered below.</p></body></html>", None))
+        self.addressLabel.setText(_translate("HelloServer", "Username", None))
+        self.label.setText(_translate("HelloServer", "Password", None))
+        self.label_2.setText(_translate("HelloServer", "Remote IP address", None))
+        self.Config.setTabText(self.Config.indexOf(self.config), _translate("HelloServer", "Config", None))
+        self.label_5.setText(_translate("HelloServer", "<html><head/><body><p>Some of the example filters provided by this plugins can be tested opening the following URLs, if you are not on <span style=\" font-weight:600;\">localhost</span> or have different deployment address, please change the URLs accordingly.</p><p>\n"
+"<ul>\n"
+"<li>RemoteConsoleFilter: <a href=\"http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=remoteconsole\">http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=remoteconsole</a</li>\n"
+"<li>HelloFilter<a href=\"http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=HELLO\">http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=HELLO</a</li>\n"
+"<li>ExceptionFilter<a href=\"http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=EXCEPTION\">http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=HELLO</a</li>\n"
+"</ul>\n"
+"</p></body></html>", None))
+        self.Config.setTabText(self.Config.indexOf(self.tab_2), _translate("HelloServer", "Test URLs", None))
 
