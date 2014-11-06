@@ -31,7 +31,10 @@ import os
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.core import *
-from qgis.server import *
+try:
+    from qgis.server import *
+except:
+    pass
 from HelloServerDialog import HelloServerDialog
 
 # Remote console filter auth defaults

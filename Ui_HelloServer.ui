@@ -161,7 +161,7 @@
 &lt;ul&gt;
 &lt;li&gt;RemoteConsoleFilter: &lt;a href=&quot;http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=remoteconsole&quot;&gt;http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=remoteconsole&lt;/a&lt;/li&gt;
 &lt;li&gt;HelloFilter&lt;a href=&quot;http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=HELLO&quot;&gt;http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=HELLO&lt;/a&lt;/li&gt;
-&lt;li&gt;ExceptionFilter&lt;a href=&quot;http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=EXCEPTION&quot;&gt;http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=HELLO&lt;/a&lt;/li&gt;
+&lt;li&gt;ExceptionFilter&lt;a href=&quot;http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=EXCEPTION&quot;&gt;http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=EXCEPTION&lt;/a&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
           </property>

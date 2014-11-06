@@ -31,14 +31,14 @@ class WatermarkFilter(QgsServerFilter):
     def __init__(self, serverIface):
         super(WatermarkFilter, self).__init__(serverIface)
 
-    def responseReady(self):
+    def responseComplete(self):
         request = self.serverInterface().requestHandler()
         params = request.parameterMap( )
         # Do some checks
         if (request.parameter('SERVICE').upper() == 'WMS' \
                 and request.parameter('REQUEST').upper() == 'GETMAP' \
                 and not request.exceptionRaised() ):
-            QgsMessageLog.logMessage("WatermarkFilter.responseReady: image ready %s" % request.infoFormat(), 'plugin', QgsMessageLog.INFO)
+            QgsMessageLog.logMessage("WatermarkFilter.responseComplete: image ready %s" % request.infoFormat(), 'plugin', QgsMessageLog.INFO)
             # Get the image
             img = QImage()
             img.loadFromData(request.body())

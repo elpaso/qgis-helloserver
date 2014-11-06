@@ -27,14 +27,14 @@ class ParamsFilter(QgsServerFilter):
     def __init__(self, serverIface):
         super(ParamsFilter, self).__init__(serverIface)
 
-    def requestReady(self):
+    def requestComplete(self):
         request = self.serverInterface().requestHandler()
         params = request.parameterMap( )
-        original = params['SERVICE']
+        original = params.get('SERVICE', '')
         request.setParameter('SERVICE', 'ParamsFilter')
         params = request.parameterMap( )
-        if params['SERVICE'] == 'ParamsFilter':
-            QgsMessageLog.logMessage("SUCCESS - ParamsFilter.responseReady", 'plugin', QgsMessageLog.INFO)
+        if params.get('SERVICE') == 'ParamsFilter':
+            QgsMessageLog.logMessage("SUCCESS - ParamsFilter.responseComplete", 'plugin', QgsMessageLog.INFO)
         else:
-            QgsMessageLog.logMessage("FAIL    - ParamsFilter.responseReady", 'plugin', QgsMessageLog.CRITICAL)
+            QgsMessageLog.logMessage("FAIL    - ParamsFilter.responseComplete", 'plugin', QgsMessageLog.CRITICAL)
         request.setParameter('SERVICE', original)

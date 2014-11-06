@@ -31,11 +31,11 @@ class ExceptionFilter(QgsServerFilter):
     def __init__(self, serverIface):
         super(ExceptionFilter, self).__init__(serverIface)
 
-    def responseReady(self):
+    def responseComplete(self):
         request = self.serverInterface().requestHandler()
         params = request.parameterMap()
         if params.get('SERVICE', '').upper() == 'EXCEPTION':
-            QgsMessageLog.logMessage("ExceptionFilter.responseReady exception raised!", 'plugin', QgsMessageLog.INFO)
+            QgsMessageLog.logMessage("ExceptionFilter.responseComplete exception raised!", 'plugin', QgsMessageLog.INFO)
             # Not very "pythonic" way to raise exceptions but this allows for
             # a different path for wanted and unwanted exceptions:
             # * QgsMapServiceException will show in the service output as a ServiceExceptionReport XML document

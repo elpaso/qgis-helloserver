@@ -138,7 +138,7 @@ class Ui_HelloServer(object):
 "<ul>\n"
 "<li>RemoteConsoleFilter: <a href=\"http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=remoteconsole\">http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=remoteconsole</a</li>\n"
 "<li>HelloFilter<a href=\"http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=HELLO\">http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=HELLO</a</li>\n"
-"<li>ExceptionFilter<a href=\"http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=EXCEPTION\">http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=HELLO</a</li>\n"
+"<li>ExceptionFilter<a href=\"http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=EXCEPTION\">http://localhost/cgi-bin/qgis_mapserv.fcgi?SERVICE=EXCEPTION</a</li>\n"
 "</ul>\n"
 "</p></body></html>", None))
         self.Config.setTabText(self.Config.indexOf(self.tab_2), _translate("HelloServer", "Test URLs", None))

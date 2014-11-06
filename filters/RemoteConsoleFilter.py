@@ -79,11 +79,11 @@ class RemoteConsoleFilter(QgsServerFilter):
         sys.stdout = sys.__stdout__
 
 
-    def responseReady(self):
-        QgsMessageLog.logMessage("RemoteConsoleFilter.responseReady", 'plugin', QgsMessageLog.INFO)
+    def responseComplete(self):
+        QgsMessageLog.logMessage("RemoteConsoleFilter.responseComplete", 'plugin', QgsMessageLog.INFO)
         request = self.serverInterface().requestHandler()
         params = request.parameterMap( )
-        if ( params['SERVICE'].lower() == 'remoteconsole'):
+        if ( params.get('SERVICE', '').lower() == 'remoteconsole'):
             if self.serverInterface().getEnv('REMOTE_ADDR') != HelloServer.getSettings().get('REMOTE_ADDR', HelloServer.DEFAULT_REMOTE_ADDR):
                 request.clearHeaders()
                 request.setHeader('Status', '403 Forbidden')

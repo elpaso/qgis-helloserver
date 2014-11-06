@@ -30,8 +30,11 @@ class HelloFilter(QgsServerFilter):
     def requestReady(self):
         QgsMessageLog.logMessage("HelloFilter.requestReady", 'plugin', QgsMessageLog.INFO)
 
-    def responseReady(self):
-        QgsMessageLog.logMessage("HelloFilter.responseReady", 'plugin', QgsMessageLog.INFO)
+    def sendResponse(self):
+        QgsMessageLog.logMessage("HelloFilter.sendResponse", 'plugin', QgsMessageLog.INFO)
+
+    def responseComplete(self):
+        QgsMessageLog.logMessage("HelloFilter.responseComplete", 'plugin', QgsMessageLog.INFO)
         request = self.serverInterface().requestHandler()
         params = request.parameterMap()
         if params.get('SERVICE', '').upper() == 'HELLO':
