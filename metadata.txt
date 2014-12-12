@@ -6,10 +6,8 @@ description=This is a test plugin for the QGIS MapServer
 version=version 1.0
 author=Alessandro Pasotti (ItOpen)
 email=apasotti@gmail.com
-service=HELLO
-; iFace plugins: if True it's a server plugin
+; if True it's a server plugin
 server=True
-methods=GetCapabilities,GetOutput,RemoteConsole,SayHello,Debug
 
 changelog=
 
