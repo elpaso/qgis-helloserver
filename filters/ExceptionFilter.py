@@ -5,7 +5,7 @@
     ExceptionFilter:  test filter for QgsMapServiceException
     ---------------------
     Date                 : August 2014
-    Copyright            : (C) 2014 by Alessandro Pasotti
+    Copyright            : (C) 2014-2015 by Alessandro Pasotti
     Email                : apasotti at gmail dot com
 ***************************************************************************
 *                                                                         *
@@ -35,7 +35,7 @@ class ExceptionFilter(QgsServerFilter):
         request = self.serverInterface().requestHandler()
         params = request.parameterMap()
         if params.get('SERVICE', '').upper() == 'EXCEPTION':
-            QgsMessageLog.logMessage("ExceptionFilter.responseComplete exception raised!", 'plugin', QgsMessageLog.INFO)
+            QgsMessageLog.logMessage("ExceptionFilter.responseComplete exception raised!")
             # Not very "pythonic" way to raise exceptions but this allows for
             # a different path for wanted and unwanted exceptions:
             # * QgsMapServiceException will show in the service output as a ServiceExceptionReport XML document

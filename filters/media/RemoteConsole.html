@@ -95,7 +95,7 @@
                     try {
                         $.get( window.location.href + '&CODE=' + encodeURIComponent(command), function( data, status, xhr ) {
                             var ct = xhr.getResponseHeader("content-type");
-                            if( ct == 'text/plain') {
+                            if( ct.contains('text/plain') ) {
                                 // Fancy formatting
                                 //term.echo('[[g;yellow;black]' + new String(data) + ']');
                                 term.echo( new String(data.trim()), {

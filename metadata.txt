@@ -3,7 +3,7 @@ name=HelloServer
 qgisMinimumVersion=2.5
 qgisMaximumVersion=2.99
 description=This is a test plugin for the QGIS MapServer
-version=version 1.0
+version=version 1.1
 author=Alessandro Pasotti (ItOpen)
 email=apasotti@gmail.com
 ; if True it's a server plugin
@@ -14,9 +14,9 @@ changelog=
 
 tags=hello world, test, server
 
-tracker=http://bugs.itopen.it/changed
-homepage=http://www.itopen.it/changed
-repository=http://www.itopen.it/changedrepo
+tracker=https://github.com/elpaso/qgis-helloserver
+homepage=https://github.com/elpaso/qgis-helloserver
+repository=https://github.com/elpaso/qgis-helloserver
 
 category=server
 
@@ -28,7 +28,8 @@ about=This is a test plugin *** DO NOT USE IN PRODUCTION!!!  ***. It provides va
       for speed testing with "ab"
     - RemoteConsole: a single user, single session completely insecure remote
       Python shell
-    - GetOutput: execute Python code configured by the user in QGIS Desktop application
+    - RemoteConsole: execute Python code through a console web application
+    - Watermark: adds a QGIS watermark to WMS images
 
 
 ; change icon...

@@ -7,9 +7,8 @@ dist: package
 install: copy2qgis
 
 PY_FILES = HelloServer.py HelloServerDialog.py __init__.py
-EXTRAS = icons/icon.png
 UI_FILES = Ui_HelloServer.py
-                                                                                                                                                                                                                                                                                                                                                                                                               RESOURCE_FILES =
+                                                                                                                                                                                                                                                                                                                                                                                                               RESOURCE_FILES = resources.py
 
 compile: $(UI_FILES) $(RESOURCE_FILES)
 

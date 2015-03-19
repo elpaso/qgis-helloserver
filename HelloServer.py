@@ -5,7 +5,7 @@
     HelloServer.py
     ---------------------
     Date                 : August 2014
-    Copyright            : (C) 2014 by Alessandro Pasotti
+    Copyright            : (C) 2014-2015 by Alessandro Pasotti
     Email                : apasotti at gmail dot com
 ***************************************************************************
 *                                                                         *
@@ -16,15 +16,12 @@
 *                                                                         *
 ***************************************************************************
 """
-from __future__ import print_function
 
 __author__ = 'Alessandro Pasotti'
 __date__ = 'August 2014'
 __copyright__ = '(C) 2014, Alessandro Pasotti - ItOpen'
 
 import sys
-
-import pickle
 import os
 
 # Import the PyQt and QGIS libraries
@@ -36,7 +33,7 @@ try:
 except:
     pass
 from HelloServerDialog import HelloServerDialog
-
+import resources
 # Remote console filter auth defaults
 
 # The filter will issue a 403 Forbidden if the following
@@ -59,12 +56,6 @@ May need proper fcgid apache configuration:
 DEFAULT_USERID = 'test'
 DEFAULT_PASSWORD = 'qgis'
 
-
-def error_log(msg):
-    """Print to stderr"""
-    print("HelloServer: ", msg, file=sys.stderr)
-
-
 class HelloServer:
     """Test plugin for QGIS server"""
 
@@ -72,19 +63,24 @@ class HelloServer:
     DEFAULT_USERID = DEFAULT_USERID
     DEFAULT_REMOTE_ADDR = DEFAULT_REMOTE_ADDR
 
-    def __init__(self, serverIface):
+    def __init__(self, iface):
         # Save reference to the QGIS interface
-        self.serverIface = serverIface
-        self.canvas = serverIface.mapCanvas()
+        self.iface = iface
+        self.canvas = iface.mapCanvas()
 
     def initGui(self):
         # Create action that will start plugin
-        self.action = QAction(QIcon(":/plugins/"), "&HelloServer", self.serverIface.mainWindow())
+        self.action = QAction(QIcon(":/plugins/HelloServer/icons/icon.png"), "&HelloServer", self.iface.mainWindow())
         # connect the action to the run method
         QObject.connect(self.action, SIGNAL("activated()"), self.config)
 
         # Add toolbar button and menu item
-        self.serverIface.addPluginToMenu("HelloServer", self.action)
+        #self.iface.addPluginToMenu("HelloServer", self.action)
+        self.menu = QMenu("HelloServer")
+        self.menu.addAction(self.action)
+        self.menu.setIcon(QIcon(":/plugins/HelloServer/icons/icon.png"))
+        self.iface.pluginMenu().addMenu(self.menu)
+
 
     # change settings
     def config(self):
@@ -110,35 +106,31 @@ class HelloServer:
 
     def unload(self):
         # Remove the plugin menu item and icon
-        self.serverIface.removePluginMenu("HelloServer",self.action)
+        self.iface.removePluginMenu("HelloServer",self.action)
 
-
-    @staticmethod
-    def _getSettingsPath():
-        dirname = os.path.dirname(os.path.realpath(__file__))
-        return os.path.join(dirname, 'helloserver.pkl')
 
     @staticmethod
     def storeSettings(settings):
-        # Stores configuration locally
-        output = open(HelloServer._getSettingsPath(), 'wb')
-        config = pickle.dump(settings, output)
-        output.close()
+        # Stores configuration in the project
+        proj = QgsProject.instance()
+        # store values
+        for k,v in settings.iteritems():
+            proj.writeEntry('hello_server_plugin', k, v)
 
 
     @staticmethod
     def getSettings():
-        try:
-            in_file = open(HelloServer._getSettingsPath(), 'rb')
-            # Pickle dictionary using protocol 0.
-            HelloServer.settings = pickle.load(in_file)
-            in_file.close()
-        except Exception, e:
-            HelloServer.settings = {
-                'userid':  DEFAULT_USERID,
-                'password': DEFAULT_PASSWORD,
-                'remote_addr': DEFAULT_REMOTE_ADDR,
-            }
+        # read values
+        proj = QgsProject.instance()
+        HelloServer.settings = {
+            'userid':  DEFAULT_USERID,
+            'password': DEFAULT_PASSWORD,
+            'remote_addr': DEFAULT_REMOTE_ADDR,
+        }
+        for k in ['userid', 'password', 'remote_addr']:
+            s = proj.readEntry("hello_server_plugin", k)[0]
+            if s:
+                HelloServer.settings[k] = s
         return HelloServer.settings
 
 
@@ -152,13 +144,15 @@ class HelloServerServer:
         self.serverIface = serverIface
         import filters
         priority = 1
+
+        QgsMessageLog.logMessage("SUCCESS - HelloServer init", 'plugin', QgsMessageLog.INFO)
         for filter_name in filters.local_modules:
-            QgsMessageLog.logMessage("HelloServerServer - loading filter %s" % filter_name, 'plugin', QgsMessageLog.INFO)
+            QgsLogger.debug("HelloServerServer - loading filter %s" % filter_name)
             try:
                 serverIface.registerFilter( getattr(filters, filter_name)(serverIface), priority * 100 )
                 priority += 1
             except Exception, e:
-                QgsMessageLog.logMessage("HelloServerServer - Error loading filter %s : %s" % (filter_name, e), 'plugin', QgsMessageLog.CRITICAL)
+                QgsLogger.debug("HelloServerServer - Error loading filter %s : %s" % (filter_name, e))
 
 
 if __name__ == "__main__":

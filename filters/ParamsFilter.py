@@ -7,7 +7,7 @@
     it to its original value
     ---------------------
     Date                 : October 2014
-    Copyright            : (C) 2014 by Alessandro Pasotti
+    Copyright            : (C) 2014-2015 by Alessandro Pasotti
     Email                : apasotti at gmail dot com
 ***************************************************************************
 *                                                                         *
@@ -36,6 +36,6 @@ class ParamsFilter(QgsServerFilter):
         request = self.serverInterface().requestHandler()
         params = request.parameterMap( )
         if params.get('TEST_NEW_PARAM') == 'ParamsFilter':
-            QgsMessageLog.logMessage("SUCCESS - ParamsFilter.responseComplete", 'plugin', QgsMessageLog.INFO)
+            QgsMessageLog.logMessage("SUCCESS - ParamsFilter.responseComplete")
         else:
-            QgsMessageLog.logMessage("FAIL    - ParamsFilter.responseComplete", 'plugin', QgsMessageLog.CRITICAL)
+            QgsMessageLog.logMessage("FAIL    - ParamsFilter.responseComplete")

@@ -6,7 +6,7 @@
         WMS GetImage calls.
     ---------------------
     Date                 : October 2014
-    Copyright            : (C) 2014 by Alessandro Pasotti
+    Copyright            : (C) 2014-2015 by Alessandro Pasotti
     Email                : apasotti at gmail dot com
 ***************************************************************************
 *                                                                         *
@@ -35,10 +35,10 @@ class WatermarkFilter(QgsServerFilter):
         request = self.serverInterface().requestHandler()
         params = request.parameterMap( )
         # Do some checks
-        if (request.parameter('SERVICE').upper() == 'WMS' \
-                and request.parameter('REQUEST').upper() == 'GETMAP' \
+        if (params.get('SERVICE').upper() == 'WMS' \
+                and params.get('REQUEST').upper() == 'GETMAP' \
                 and not request.exceptionRaised() ):
-            QgsMessageLog.logMessage("WatermarkFilter.responseComplete: image ready %s" % request.infoFormat(), 'plugin', QgsMessageLog.INFO)
+            QgsMessageLog.logMessage("WatermarkFilter.responseComplete: image ready %s" % request.infoFormat())
             # Get the image
             img = QImage()
             img.loadFromData(request.body())

@@ -6,7 +6,7 @@
     prints HelloServer! on plain text response
     ---------------------
     Date                 : October 2014
-    Copyright            : (C) 2014 by Alessandro Pasotti
+    Copyright            : (C) 2014-2015 by Alessandro Pasotti
     Email                : apasotti at gmail dot com
 ***************************************************************************
 *                                                                         *
@@ -28,13 +28,13 @@ class HelloFilter(QgsServerFilter):
         super(HelloFilter, self).__init__(serverIface)
 
     def requestReady(self):
-        QgsMessageLog.logMessage("HelloFilter.requestReady", 'plugin', QgsMessageLog.INFO)
+        QgsMessageLog.logMessage("HelloFilter.requestReady")
 
     def sendResponse(self):
-        QgsMessageLog.logMessage("HelloFilter.sendResponse", 'plugin', QgsMessageLog.INFO)
+        QgsMessageLog.logMessage("HelloFilter.sendResponse")
 
     def responseComplete(self):
-        QgsMessageLog.logMessage("HelloFilter.responseComplete", 'plugin', QgsMessageLog.INFO)
+        QgsMessageLog.logMessage("HelloFilter.responseComplete")
         request = self.serverInterface().requestHandler()
         params = request.parameterMap()
         if params.get('SERVICE', '').upper() == 'HELLO':
