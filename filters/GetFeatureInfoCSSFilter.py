@@ -32,6 +32,13 @@ class GetFeatureInfoCSSFilter(QgsServerFilter):
     def __init__(self, serverIface):
         super(GetFeatureInfoCSSFilter, self).__init__(serverIface)
 
+    def requestReady(self):
+        """Nothing to do here, but it would be the ideal point
+        to alter request **before** it gets processed, for example
+        you could set INFO_FORMAT to text/xml to get XML instead of
+        HTML in responseComplete"""
+        pass
+
     def responseComplete(self):
         request = self.serverInterface().requestHandler()
         params = request.parameterMap( )
