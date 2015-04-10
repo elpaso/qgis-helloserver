@@ -6,8 +6,8 @@
     QGIS Server Plugin Filters: this test filter adds a CSS to HTML
     get feature info response.
     ---------------------
-    Date                 : October 2014
-    Copyright            : (C) 2014-2015 by Alessandro Pasotti
+    Date                 : April 2015
+    Copyright            : (C) 2015 by Alessandro Pasotti
     Email                : apasotti at gmail dot com
 ***************************************************************************
 *                                                                         *
