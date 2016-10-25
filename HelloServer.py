@@ -72,7 +72,7 @@ class HelloServer:
         # Create action that will start plugin
         self.action = QAction(QIcon(":/plugins/HelloServer/icons/icon.png"), "&HelloServer", self.iface.mainWindow())
         # connect the action to the run method
-        QObject.connect(self.action, SIGNAL("activated()"), self.config)
+        self.action.triggered.connect(self.config)
 
         # Add toolbar button and menu item
         #self.iface.addPluginToMenu("HelloServer", self.action)
