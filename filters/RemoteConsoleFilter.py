@@ -3,7 +3,7 @@
 ***************************************************************************
     RemoteConsoleFilter: test filter for a persistent remote console
     ---------------------
-    Date                 : Octopber 2014
+    Date                 : October 2014
     Copyright            : (C) 2014 by Alessandro Pasotti
     Email                : apasotti at gmail dot com
 ***************************************************************************
