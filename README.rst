@@ -6,3 +6,16 @@ For more informations on how to use Python plugins for QGIS Server, please refer
 
 http://www.itopen.it/category/gis/qgis/qgis-server/
 
+
+Sample filters:
+
+Exception:
+http://localhost:8000/?SERVICE=EXCEPTION
+
+Watermark: any WMS GetMap
+
+HelloFilter: prints messages to the logs
+
+GetFeatureInfoCSS: injects CSS in GetFeatureInfo HTML response
+
+ParamsFilter: prints messages to the logs

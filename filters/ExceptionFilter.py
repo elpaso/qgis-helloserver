@@ -16,12 +16,8 @@
 *                                                                         *
 ***************************************************************************
 """
-from __future__ import print_function
 
 
-# Import the PyQt and QGIS libraries
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
 from qgis.core import *
 from qgis.server import *
 
@@ -29,7 +25,7 @@ from qgis.server import *
 class ExceptionFilter(QgsServerFilter):
 
     def __init__(self, serverIface):
-        super(ExceptionFilter, self).__init__(serverIface)
+        super().__init__(serverIface)
 
     def responseComplete(self):
         request = self.serverInterface().requestHandler()
@@ -40,5 +36,5 @@ class ExceptionFilter(QgsServerFilter):
             # a different path for wanted and unwanted exceptions:
             # * QgsMapServiceException will show in the service output as a ServiceExceptionReport XML document
             # * unhandled unwanted exceptions will only show up in the server logs
-            request.setServiceException(QgsMapServiceException('ExceptionFilter', 'Test exception raised from ExceptionFilter'))
+            request.setServiceException(QgsServerException('ExceptionFilter: Test exception raised from ExceptionFilter'))
 

@@ -19,35 +19,25 @@
 ***************************************************************************
 """
 
-import os
 
 from qgis.server import *
-from qgis.core import *
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
 
-
-class GetFeatureInfoCSSFilter(QgsServerFilter):
+class GetFeatureInfoFilter(QgsServerFilter):
 
     def __init__(self, serverIface):
-        super(GetFeatureInfoCSSFilter, self).__init__(serverIface)
-
-    def requestReady(self):
-        """Nothing to do here, but it would be the ideal point
-        to alter request **before** it gets processed, for example
-        you could set INFO_FORMAT to text/xml to get XML instead of
-        HTML in responseComplete"""
-        pass
+        super(GetFeatureInfoFilter, self).__init__(serverIface)
 
     def responseComplete(self):
-        request = self.serverInterface().requestHandler()
-        params = request.parameterMap( )
-        if (params.get('SERVICE').upper() == 'WMS' \
+        handler = self.serverInterface().requestHandler()
+        params = handler.parameterMap( )
+
+        if (params.get('SERVICE', '').upper() == 'WMS' \
                 and params.get('REQUEST', '').upper() == 'GETFEATUREINFO' \
                 and params.get('INFO_FORMAT', '').upper() == 'TEXT/HTML' \
-                and not request.exceptionRaised() ):
-            body = request.body()
-            body.replace('<BODY>', """<BODY><STYLE type="text/css">* {font-family: arial, sans-serif; color: blue;}</STYLE>""")
-            # Set the body
-            request.clearBody()
-            request.appendBody(body)
+                and not handler.exceptionRaised() ):
+            body = handler.body()
+            body.replace(b'<BODY>', b"""<BODY><STYLE type="text/css">* {font-family: arial, sans-serif; color: #09095e;} table { border-collapse:collapse; } td, tr { border: solid 1px grey; }</STYLE>""")
+            handler.clearBody()
+            handler.appendBody(body)
+
+

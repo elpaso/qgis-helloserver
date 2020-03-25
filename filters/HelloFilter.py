@@ -20,12 +20,11 @@
 
 from qgis.server import *
 from qgis.core import *
-from HelloServer.HelloServer import HelloServer
 
 class HelloFilter(QgsServerFilter):
 
     def __init__(self, serverIface):
-        super(HelloFilter, self).__init__(serverIface)
+        super().__init__(serverIface)
 
     def requestReady(self):
         QgsMessageLog.logMessage("HelloFilter.requestReady")
@@ -38,7 +37,6 @@ class HelloFilter(QgsServerFilter):
         request = self.serverInterface().requestHandler()
         params = request.parameterMap()
         if params.get('SERVICE', '').upper() == 'HELLO':
-            request.clearHeaders()
-            request.setHeader('Content-type', 'text/plain')
-            request.clearBody()
-            request.appendBody('HelloServer!')
+            request.clear()
+            request.setResponseHeader('Content-type', 'text/plain')
+            request.appendBody(b'HelloServer!')

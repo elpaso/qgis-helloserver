@@ -22,14 +22,14 @@ import os
 
 from qgis.server import *
 from qgis.core import *
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
+from qgis.PyQt.QtCore import *
+from qgis.PyQt.QtGui import *
 
 
 class WatermarkFilter(QgsServerFilter):
 
     def __init__(self, serverIface):
-        super(WatermarkFilter, self).__init__(serverIface)
+        super().__init__(serverIface)
 
     def responseComplete(self):
         request = self.serverInterface().requestHandler()
@@ -38,7 +38,7 @@ class WatermarkFilter(QgsServerFilter):
         if (params.get('SERVICE').upper() == 'WMS' \
                 and params.get('REQUEST').upper() == 'GETMAP' \
                 and not request.exceptionRaised() ):
-            QgsMessageLog.logMessage("WatermarkFilter.responseComplete: image ready %s" % request.infoFormat())
+            QgsMessageLog.logMessage("WatermarkFilter.responseComplete: image ready %s" % request.parameter("FORMAT"))
             # Get the image
             img = QImage()
             img.loadFromData(request.body())
@@ -50,7 +50,7 @@ class WatermarkFilter(QgsServerFilter):
             ba = QByteArray()
             buffer = QBuffer(ba)
             buffer.open(QIODevice.WriteOnly)
-            img.save(buffer, "PNG")
+            img.save(buffer, "PNG" if "png" in request.parameter("FORMAT") else "JPG")
             # Set the body
             request.clearBody()
             request.appendBody(ba)
