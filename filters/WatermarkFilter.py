@@ -35,8 +35,8 @@ class WatermarkFilter(QgsServerFilter):
         request = self.serverInterface().requestHandler()
         params = request.parameterMap( )
         # Do some checks
-        if (params.get('SERVICE').upper() == 'WMS' \
-                and params.get('REQUEST').upper() == 'GETMAP' \
+        if (params.get('SERVICE', '').upper() == 'WMS' \
+                and params.get('REQUEST', '').upper() == 'GETMAP' \
                 and not request.exceptionRaised() ):
             QgsMessageLog.logMessage("WatermarkFilter.responseComplete: image ready %s" % request.parameter("FORMAT"))
             # Get the image
