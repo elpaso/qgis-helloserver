@@ -22,10 +22,10 @@
 
 from qgis.server import *
 
-class GetFeatureInfoFilter(QgsServerFilter):
+class GetFeatureInfoCSSFilter(QgsServerFilter):
 
     def __init__(self, serverIface):
-        super(GetFeatureInfoFilter, self).__init__(serverIface)
+        super(GetFeatureInfoCSSFilter, self).__init__(serverIface)
 
     def responseComplete(self):
         handler = self.serverInterface().requestHandler()
